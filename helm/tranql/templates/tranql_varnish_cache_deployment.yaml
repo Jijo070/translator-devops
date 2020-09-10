@@ -34,7 +34,8 @@ items:
                 echo "Connected ... ";
         containers:
           - name: {{ .Values.tranql_varnish.frontend.container_name }}
-            image: {{ .Values.tranql_varnish.image }}:{{ .Values.tranql_varnish.image_tag}}
+            image: {{ .Values.tranql_varnish.image }}:{{ .Chart.AppVersion }}
+            imagePullPolicy: Always
             ports:
             - containerPort: {{ .Values.tranql_varnish.port }}
               name: http
@@ -81,7 +82,8 @@ items:
                 done
         containers:
           - name: {{ .Values.tranql_varnish.backplane.container_name }}
-            image: {{ .Values.tranql_varnish.image }}:{{ .Values.tranql_varnish.image_tag}}
+            image: {{ .Values.tranql_varnish.image }}:{{ .Chart.AppVersion }}
+            imagePullPolicy: Always
             ports:
             - containerPort: {{ .Values.tranql_varnish.port }}
               name: http

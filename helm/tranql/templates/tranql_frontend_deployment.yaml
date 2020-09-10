@@ -49,8 +49,9 @@ spec:
 {{ end }}
       containers:
       - name: tranql-app
-        image: {{ .Values.tranql_frontend.image }}:{{ .Values.tranql_frontend.image_tag }}
-        command: [ "/usr/local/bin/gunicorn", "--workers=2", "--bind=0.0.0.0:8001", "--timeout={{ .Values.timeout }}", "--access-logfile=$(ACCESS_LOG)", "--error-logfile=$(ERROR_LOG)", "--log-level=debug", "tranql.api:app" ]
+        image: {{ .Values.tranql_frontend.image }}:{{ .Chart.AppVersion }}
+        imagePullPolicy: Always
+        command: [ "/usr/local/bin/gunicorn", "--workers=3", "--bind=0.0.0.0:8001", "--timeout={{ .Values.timeout }}", "--access-logfile=$(ACCESS_LOG)", "--error-logfile=$(ERROR_LOG)", "--log-level=debug", "tranql.api:app" ]
         ports:
           - containerPort: {{ .Values.tranql_frontend.web_app_port }}
             name: http
